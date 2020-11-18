@@ -5,6 +5,12 @@ const appointmentsRouter = Router();
 
 const appointmentsRepository = new AppointmentRepository()
 
+appointmentsRouter.get('/', (request, response ) => {
+  const appointments = appointmentsRepository.all();
+
+  return response.json(appointments);
+})
+
 appointmentsRouter.post('/', (request, response)=> {
   const { provider, date } = request.body;
   const parsedDate = startOfHour(new Date(date *1000));
