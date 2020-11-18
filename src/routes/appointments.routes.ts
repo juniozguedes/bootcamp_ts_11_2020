@@ -1,14 +1,9 @@
-import { v4 as uuidv4 } from 'uuid';
 import {Router} from 'express';
 import {startOfHour, parseISO, isEqual } from 'date-fns'
+import Appointment from '../models/Appointments'
 
 const appointmentsRouter = Router();
 
-interface Appointment {
-  id: string;
-  provider: string;
-  date: Date;
-}
 
 const appointments: Appointment[] = []; // O tipo dessa variável é um Array de appointment
 
@@ -24,11 +19,7 @@ appointmentsRouter.post('/', (request, response)=> {
     if (findAppointmentInSameDate){
       return response.status(400).json({message: "This appointment is already booked"})
     }
-  const appointment = {
-    id: uuidv4(),
-    provider,
-    date: parsedDate
-  }
+  const appointment = new Appointment(provider,parsedDate)
 
   appointments.push(appointment)
   return response.json({appointment});
