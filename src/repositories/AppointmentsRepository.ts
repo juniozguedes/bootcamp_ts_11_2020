@@ -7,6 +7,10 @@ class AppointmentsRepository {
     this.appointments = [];
   }
 
+  public all(): Appointment[] {
+    return this.appointments
+  }
+
   public findByDate(date: Date): Appointment | null {
     const findAppointmentInSameDate = this.appointments.find((appointment) =>
       isEqual(date, appointment.date)
@@ -15,7 +19,7 @@ class AppointmentsRepository {
     return findAppointmentInSameDate || null;
   }
 
-  public create(provider: string, date: Date) {
+  public create(provider: string, date: Date):Appointment {
     const appointment = new Appointment(provider, date);
 
     this.appointments.push(appointment);
